@@ -38,6 +38,7 @@ gem 'devise'
 
 gem "thor", "= 0.19.1"
 gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'jquery-ui-rails', '~> 4.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
