@@ -1,0 +1,17 @@
+%li.media.card
+  .media-left
+    %a{href: "#"}
+      %img.img-circle.logo-size.media-object{src: "https://www.smashingmagazine.com/wp-content/uploads/2015/09/smashing-book-5-2-large.jpg"}
+  .media-body
+    %div
+      %p.general-message-date.hidden-xs 11/11/16
+      %h4.media-heading.max-240.general-message-name
+        %span.general-message-verified Verified Reviewer
+        = comment.commenter
+    .mb-15
+      %i.fa.fa-star.rate-star
+      %i.fa.fa-star.rate-star
+      %i.fa.fa-star.rate-star
+      %i.fa.fa-star.rate-star
+      %i.fa.fa-star.rate-star
+    %p = comment.body

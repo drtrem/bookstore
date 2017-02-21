@@ -4,7 +4,7 @@ class ProductsController < ApplicationController
 	end 
 
 	def show 
-		@product = Product.find(params[:id]) 
+		@product = Product.find_by_id(params[:id]) 
 	end 
 
 	def new 
@@ -42,8 +42,19 @@ class ProductsController < ApplicationController
 		redirect_to product_path 
 	end 
 
-	private 
+	private
 	def product_params 
-		params.require(:product).permit(:title, :authors, :price, :quantity, :description, :year, :dimensions, :materials) 
+		params.require(:product).
+			permit(
+				:title, 
+				:authors, 
+				:price, 
+				:quantity, 
+				:description, 
+				:year, 
+				:dimensions, 
+				:materials, 
+				:image_url
+			) 
 	end
 end
