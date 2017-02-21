@@ -40,9 +40,21 @@ gem "thor", "= 0.19.1"
 gem 'activeadmin', '~> 1.0.0.pre4'
 gem 'jquery-ui-rails', '~> 4.2.1'
 
+gem 'omniauth-facebook'
+gem 'cancancan'
+gem 'kaminari'
+gem 'carrierwave'
+gem "mini_magick"
+gem 'haml'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
 end
 
 group :development do
