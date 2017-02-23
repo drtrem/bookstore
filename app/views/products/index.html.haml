@@ -69,9 +69,8 @@
             %img.img-shadow.general-thumbnail-img{src: product.image_url, alt: "design-book"}
             .thumb-hover
               .general-thumb-link-wrap
-                = link_to 'Show', products_path(product)
-                %a.thumb-hover-link{href: "#"}
-                  %i.fa.fa-shopping-cart.thumb-icon
+                = link_to 'Show', products_path(product_id: product)
+                = button_to 'Add to Cart', line_items_path(product_id: product), remote: true
         .general-thumb-info
           %p.general-title= product.title
           %p.font-16.in-gold-500= number_to_currency(product.price)
