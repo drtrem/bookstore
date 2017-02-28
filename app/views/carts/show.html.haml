@@ -62,4 +62,4 @@
             %td
               %strong.font-18= number_to_currency(@cart.total_price)
         %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
-%button.btn.btn-default.mb-20.hidden-xs.center-block Checkout
+= button_to "Checkout", new_order_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block'
