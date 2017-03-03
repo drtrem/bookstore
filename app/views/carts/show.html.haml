@@ -1,16 +1,16 @@
-%h1.general-title-margin Cart
+%h1.general-title-margin= t('.cart')
 .hidden-xs
   %table.table.table-hover
     %tr.no-hover
       %th.col-pic.pl-0
-        %span.in-grey-600 Product
+        %span.in-grey-600= t('.product')
       %th.col-title
       %th.col-price
-        %span.in-grey-600 Price
+        %span.in-grey-600= t('.price')
       %th.col-quantity
-        %span.in-grey-600 Quantity
+        %span.in-grey-600= t('.quantity')
       %th.col-total
-        %span.in-grey-600 SubTotal
+        %span.in-grey-600= t('.subtotal')
       %th.col-close
     - @cart.line_items.each do |item|
       %tr
@@ -20,7 +20,7 @@
         %td
           %p.general-title= item.product.title
         %td
-          %span.font-16.in-gold-500= item.product.price
+          %span.font-16.in-gold-500= "€#{item.product.price}"
         %td
           .input-group
             %a.input-link{href: "#"}
@@ -37,29 +37,29 @@
   .row
     .col-sm-4
       .input-group.general-input-group
-        %label.font-weight-light Enter Your Coupon Code
+        %label.font-weight-light= t('.enter_your_coupon_code')
         %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code "}
         %div
-          %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block Apply Coupon
-          %button.btn.btn-primary.mb-15.res-block Update cart
+          %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block= t('.apply_coupon')
+          %button.btn.btn-primary.mb-15.res-block= t('.update_cart')
     .col-sm-8
       .res-mr-200.text-center.general-text-right
-        %p.in-gold-500.font-18 Order Summary
+        %p.in-gold-500.font-18= t('.order_summary')
         %table.general-summary-table.general-summary-table-right.general-text-right
           %tr
             %td
-              %p.font-16 Subtotal:
+              %p.font-16= t('.subtotal')
             %td
               %p.font-16= number_to_currency(@cart.total_price)
           %tr
             %td
-              %p.font-16 Coupon:
+              %p.font-16= t('.coupon')
             %td
               %p.font-16 €0.00
           %tr
             %td
-              %strong.font-18 Order Total:
+              %strong.font-18= t('.order_total')
             %td
               %strong.font-18= number_to_currency(@cart.total_price)
-        %button.btn.btn-default.mb-20.visible-xs-inline-block Checkout
+        %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
 = button_to "Checkout", new_order_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block'
