@@ -23,16 +23,13 @@
           %span.font-16.in-gold-500= "€#{item.product.price}"
         %td
           .input-group
-            %a.input-link{href: "#"}
-              %i.fa.fa-minus.line-height-40
+            = link_to '', line_item_path(product_id: item.product.id), method: :patch, class: "input-link fa fa-minus line-height-40"
             %input.form-control.quantity-input{:type => "text", :value => item.quantity}
-            %a.input-link{href: "#"}
-              %i.fa.fa-plus.line-height-40
+            = link_to '', line_items_path(product_id: item.product.id), remote: true, method: :post, class: "input-link fa fa-plus line-height-40"
         %td
           %span.font-16.in-gold-500= number_to_currency(item.total_price)
         %td
-          %button.close.general-cart-close{type: "button", 'aria-label': "Close"}
-            %span{'aria-hidden': "true"} &times;
+          = button_to 'x',  line_item_path(product_id: item.product.id), method: :delete, class: 'close general-cart-close'
 .general-order-wrap
   .row
     .col-sm-4
@@ -62,4 +59,4 @@
             %td
               %strong.font-18= number_to_currency(@cart.total_price)
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-= button_to "Checkout", new_order_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block'
+= button_to "Checkout",  new_order_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block' 

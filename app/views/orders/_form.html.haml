@@ -99,4 +99,4 @@
                 %p.font-16= t('.order_total')
               %td
                 %p.font-16= number_to_currency(@cart.total_price)
-          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20', :disabled => !@order.nil?}
+          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20'}
