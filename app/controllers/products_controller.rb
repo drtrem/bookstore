@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+	include CurrentCart
+
 	def index 
 		@product = Product.all 
 	end 

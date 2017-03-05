@@ -3,7 +3,7 @@ class LineItemsController < InheritedResources::Base
 
 	#skip_before_action :authorize, only: :create
   before_action :set_cart, only: [:create, :update, :destroy]
-  before_action :set_line_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_line_item, only: [:show, :edit]
 
   # GET /line_items
   # GET /line_items.json

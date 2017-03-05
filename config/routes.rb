@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 		resources :line_items
 		resources :carts
 
-		resource :products do
+		resource :product do
   		resources :comments
   	end
 
