@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'home/new'
+
+  get 'home/create'
+
   #resources :orders
   #resources :line_items
   #resources :carts
@@ -11,7 +15,8 @@ Rails.application.routes.draw do
   #	resources :comments
   #end
 
-  scope '(:locale)' do 
+  scope '(:locale)' do
+  	resources :home
 		resources :orders
 		resources :line_items
 		resources :carts
@@ -20,7 +25,7 @@ Rails.application.routes.draw do
   		resources :comments
   	end
 
-		root 'products#index', as: 'store', via: :all
+		root 'home#index', as: 'store', via: :all
 	end
 
   #root 'products#index'
