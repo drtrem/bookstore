@@ -1,0 +1,102 @@
+%h1.general-title-margin= t('.checkout')
+%ul.steps.list-inline
+  %li.step.active
+    %span.step-number 1
+    %span.step-text.hidden-xs= t('.address')
+  %li.step-divider
+  %li.step
+    %span.step-number 2
+    %span.step-text.hidden-xs= t('.delivery')
+  %li.step-divider
+  %li.step
+    %span.step-number 3
+    %span.step-text.hidden-xs= t('.payment')
+  %li.step-divider
+  %li.step
+    %span.step-number 4
+    %span.step-text.hidden-xs= t('.confirm')
+  %li.step-divider
+  %li.step
+    %span.step-number 5
+    %span.step-text.hidden-xs= t('.complete')
+%form.res-mb-100
+  .hidden-xs.hidden-sm
+    .row
+      .col-md-5
+        %h3.general-subtitle= t('.billing_address')
+        %p.general-info-text= t('.all_fields_are_required')
+      .col-md-5.col-md-offset-1
+        %h3.general-subtitle= t('.shipping_address')
+  .row
+    .col-md-5.mb-40
+      .visible-xs.visible-sm
+        %h3.general-subtitle= t('.billing_address')
+        %p.general-info-text= t('.all_fields_are_required')
+      = form_for(@order) do |f|
+        .form-group
+          = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
+          = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+        .form-group
+          = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
+          = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+        .form-group
+          = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
+          = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+        .form-group
+          = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
+          = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+        .form-group
+          = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
+          = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+        .form-group
+          = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
+          = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+        .form-group
+          = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
+          = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+        = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20', :disabled => !@order.nil?}
+    .col-md-5.col-md-offset-1.mb-60
+      .visible-xs.visible-sm
+        %h3.general-subtitle= t('.shipping_address')
+      = form_for(@order) do |f|
+        .form-group
+          = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
+          = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+        .form-group
+          = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
+          = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+        .form-group
+          = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
+          = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+        .form-group
+          = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
+          = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+        .form-group
+          = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
+          = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+        .form-group
+          = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
+          = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+        .form-group
+          = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
+          = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+        .form-group.checkbox
+          %label.font-weight-light.pl-0
+            %input.checkbox-input{type: "checkbox", hidden: "true"}
+            %span.checkbox-icon
+              %i.fa.fa-check
+            %span.checkbox-textt= t('.use_billing_adress')
+        .general-text-align.mb-60
+          %p.in-gold-500.font-18= t('.order_summary')
+          %table.general-summary-table
+            %tr
+              %td
+                %p.font-16= t('.item_total')
+              %td
+                %p.font-16= number_to_currency(@cart.total_price)
+            %tr
+              %td
+                %p.font-16= t('.order_total')
+              %td
+                %p.font-16= number_to_currency(@cart.total_price)
+          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20'}

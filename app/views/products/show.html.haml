@@ -1,0 +1,82 @@
+%h1.general-title-margin Сatalog
+.hidden-xs.clearfix
+  .pull-right
+    .dropdown
+      %a.dropdown-toggle.dropdown-btn.width-240{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+        Newest first
+        %i.fa.fa-angle-down.dropdown-icon
+      %ul.dropdown-menu
+        %li
+          %a{href: "#"} Newest first
+        %li
+          %a{href: "#"} Popular first
+        %li
+          %a{href: "#"} Price: Low to hight
+        %li
+          %a{href: "#"} Price: Low to hight
+  %ul.list-inline.pt-10.mb-25.mr-240
+    %li.mr-35
+      %a.filter-link{href: "#"}
+        All
+        %span.badge.general-badge 135
+    %li.mr-35
+      %a.filter-link{href: "#"}
+        Mobile Development
+        %span.badge.general-badge 135
+    %li.mr-35
+      %a.filter-link{href: "#"}
+        Photo
+        %span.badge.general-badge 135
+    %li.mr-35
+      %a.filter-link{href: "#"}
+        Web Design
+        %span.badge.general-badge 135
+.mb-40.visible-xs
+  %p.in-grey-600.small.mb-10 Filter by category
+  .dropdown.mb-20
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      Newest first
+      %i.fa.fa-angle-down.dropdown-icon
+    %ul.dropdown-menu
+      %li
+        %a{href: "#"} Newest first
+      %li
+        %a{href: "#"} Popular first
+      %li
+        %a{href: "#"} Price: Low to hight
+      %li
+        %a{href: "#"} Price: Low to hight
+  %p.in-grey-600.small.mb-10 Sort by
+  .dropdown
+    %a.dropdown-toggle.dropdown-btn.width-100{href: "#", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}
+      Newest first
+      %i.fa.fa-angle-down.dropdown-icon
+    %ul.dropdown-menu
+      %li
+        %a{href: "#"} Newest first
+      %li
+        %a{href: "#"} Popular first
+      %li
+        %a{href: "#"} Price: Low to hight
+      %li
+        %a{href: "#"} Price: Low to hight`
+.mb-120
+  .row
+    - @product.each do |product|
+      .col-xs-6.col-sm-3
+        .general-thumb-wrap
+          .thumbnail.general-thumbnail
+            %img.img-shadow.general-thumbnail-img{src: product.image_url, alt: "design-book"}
+            .thumb-hover
+              .general-thumb-link-wrap
+                %a.thumb-hover-link{href: "#{book_path(id: product)}"}
+                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                %a.thumb-hover-link{href: "#{line_items_path(product_id: product)}"}
+                  %i.fa.fa-shopping-cart.thumb-icon
+        .general-thumb-info
+          %p.general-title= product.title
+          %p.font-16.in-gold-500= number_to_currency(product.price)
+          %span.divider-sm
+          %p.in-grey-600.small= product.authors
+  .text-center
+    %button.btn.btn-primary View More
