@@ -1,4 +1,28 @@
 Rails.application.routes.draw do
+  get 'complete/index'
+
+  get 'complete/new'
+
+  get 'complete/create'
+
+  get 'confirm/index'
+
+  get 'confirm/new'
+
+  get 'confirm/create'
+
+  get 'payment/index'
+
+  get 'payment/new'
+
+  get 'payment/create'
+
+  get 'delivery/index'
+
+  get 'delivery/new'
+
+  get 'delivery/create'
+
   get '/en/home_index_path' => 'home#index'
   get '/en/product_path' => 'products#show'
   get '/en/cart_path' => 'carts#show'
