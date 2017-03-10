@@ -37,6 +37,7 @@
           .hidden-xs
             %ul.nav.navbar-nav
               %li
+                = link_to('Logout', destroy_user_session_path, :method => :delete)
                 %a{href: "#{home_index_path}"}= t('.home')
               %li.dropdown
                 %a.dropdown-toggle{href: "#{product_path}", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')

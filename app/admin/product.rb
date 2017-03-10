@@ -1,5 +1,7 @@
 ActiveAdmin.register Product do
 
+	permit_params :title, :authors, :price, :quantity, :description, :year, :dimensions, :materials, :image_url
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #

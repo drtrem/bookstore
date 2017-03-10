@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+	#attr_accessor :title, :authors, :price, :quantity, :description, :year, :dimensions, :materials, :image_url
 	#validates :title, :authors, :price, :quantity, :description, :year, :dimensions, :materials, :image_url, presence: true
 	validates :title, length: { minimum: 10, too_short: "10 character minimum" } 
 	validates :price, numericality: { greater_than_or_equal_to: 0.01 }

@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+	load_and_authorize_resource except: [:create]
 	
 	def index 
 		@product = Product.all 

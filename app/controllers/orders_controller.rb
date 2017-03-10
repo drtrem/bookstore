@@ -3,6 +3,7 @@ class OrdersController < InheritedResources::Base
 
 	before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /orders
   # GET /orders.json
@@ -25,7 +26,8 @@ class OrdersController < InheritedResources::Base
 			redirect_to store_url, notice: "Your cart is empty"
 			return
 		end
-    @order = Order.new
+    #@order = Order.new
+    @order = current_user.orders.build
   end
 
   # GET /orders/1/edit
@@ -35,7 +37,7 @@ class OrdersController < InheritedResources::Base
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(order_params)
+    @order = current_user.orders.build(order_params)
 		@order.add_line_items_from_cart(@cart)
 		respond_to do |format|
 			if @order.save
