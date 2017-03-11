@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get '/en/product_path' => 'products#show'
   get '/en/cart_path' => 'carts#show'
 
+  get '/en/product/category/:id', to: 'products#category', as: 'category'
   #get 'home/new'
 
   #get 'home/create'

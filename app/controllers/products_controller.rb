@@ -6,7 +6,9 @@ class ProductsController < ApplicationController
 	end 
 
 	def show 
-		@product = Product.all 
+		@product = Product.all
+		#@product = Product.includes(:categories).find(params[:id])
+		@categories = Category.all
 		#@product = Product.find_by_id(params[:product_id]) 
 	end 
 
@@ -45,12 +47,19 @@ class ProductsController < ApplicationController
 		redirect_to product_path 
 	end 
 
+	def category 
+		@product = Product.where(category_id: params[:id])
+		@categories = Category.all
+		render 'show' 
+	end 
+
 	private
 	def product_params 
 		params.require(:product).
 			permit(
 				:title, 
-				:authors, 
+				:category_id, 
+				:author_id,
 				:price, 
 				:quantity, 
 				:description, 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170308072157) do
+ActiveRecord::Schema.define(version: 20170311110352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,21 @@ ActiveRecord::Schema.define(version: 20170308072157) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "authors", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "carts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,6 +71,7 @@ ActiveRecord::Schema.define(version: 20170308072157) do
     t.integer  "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "state"
     t.index ["product_id"], name: "index_comments_on_product_id", using: :btree
   end
 
@@ -91,13 +106,6 @@ ActiveRecord::Schema.define(version: 20170308072157) do
 
   create_table "orders", force: :cascade do |t|
     t.string   "order_number"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "zip"
-    t.string   "country"
-    t.string   "phone"
     t.string   "card_number"
     t.string   "name_on_card"
     t.string   "mm_yy"
@@ -105,13 +113,12 @@ ActiveRecord::Schema.define(version: 20170308072157) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
+    t.string   "state"
   end
 
   create_table "products", force: :cascade do |t|
     t.string   "title"
-    t.string   "authors"
     t.decimal  "price"
-    t.integer  "quantity"
     t.text     "description"
     t.date     "year"
     t.string   "dimensions"
@@ -119,6 +126,10 @@ ActiveRecord::Schema.define(version: 20170308072157) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "image_url"
+    t.integer  "author_id"
+    t.integer  "category_id"
+    t.index ["author_id"], name: "index_products_on_author_id", using: :btree
+    t.index ["category_id"], name: "index_products_on_category_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -136,6 +147,20 @@ ActiveRecord::Schema.define(version: 20170308072157) do
     t.datetime "updated_at",                          null: false
     t.string   "provider"
     t.string   "uid"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "zip"
+    t.string   "country"
+    t.string   "phone"
+    t.string   "shipping_first_name"
+    t.string   "shipping_last_name"
+    t.string   "shipping_address"
+    t.string   "shipping_city"
+    t.string   "shipping_zip"
+    t.string   "shipping_country"
+    t.string   "shipping_phone"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
