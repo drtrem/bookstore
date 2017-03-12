@@ -15,14 +15,14 @@
           %img.width-full{src: @product.image_url}
   .col-sm-6
     %h1.mt-res-0= @product.title
-    %p.in-grey-600.small= @product.authors
+    %p.in-grey-600.small= "#{@product.author.first_name} #{@product.author.last_name}" 
     .row
       .col-xs-12.col-md-4
         %p.h1.in-gold-500.mt-10= "€#{@product.price}0"
       .col-xs-5.col-md-3
         .input-group.general-position
           = link_to '', line_item_path(@product.id), method: :patch, class: "input-link fa fa-minus line-height-40"
-          %input.form-control.quantity-input{:type => "text", :value => '@cart.line_items.quantity'}
+          %input.form-control.quantity-input{:type => "text", :value => "@cart.line_items.quantity"}
           = link_to '', line_items_path(product_id: @product.id), remote: true, method: :post, class: "input-link fa fa-plus line-height-40"
       .col-xs-7.col-md-5
         = button_to 'Add to Cart', line_items_path(product_id: @product.id), remote: true, class: "btn btn-default pull-right general-position"

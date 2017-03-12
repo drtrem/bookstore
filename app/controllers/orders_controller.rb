@@ -37,21 +37,26 @@ class OrdersController < InheritedResources::Base
   # POST /orders
   # POST /orders.json
   def create
-    @order = current_user.orders.build(order_params)
-		@order.add_line_items_from_cart(@cart)
-		respond_to do |format|
-			if @order.save
-				Cart.destroy(session[:cart_id])
-				session[:cart_id] = nil
-				#OrderNotifier.received(@order).deliver
-				format.html { redirect_to store_url, notice:'Thank you for your order.' }
-				format.json { render action: 'show', status: :created, location: @order }
-			else
-				@cart = current_cart
-				format.html { render action: 'new' }
-				format.json { render json: @order.errors, status: :unprocessable_entity }
-			end
-		end
+    @user = User.find(current_user.id)
+    @user.update_attributes(user_params)
+    render 'delivery/new'
+    #@order = current_user.orders.build(order_params)
+    
+    #@order = current_user.orders.build
+		#@order.add_line_items_from_cart(@cart)
+		#respond_to do |format|
+		#	if @order.save
+		#		Cart.destroy(session[:cart_id])
+		#		session[:cart_id] = nil
+		#		#OrderNotifier.received(@order).deliver
+		#		format.html { render 'delivery/new', notice:'Thank you for your order.' }
+		#		format.json { render action: 'show', status: :created, location: @order }
+		#	else
+		#		@cart = current_cart
+		#		format.html { render action: 'new' }
+		#		format.json { render json: @order.errors, status: :unprocessable_entity }
+		#	end
+		#end
 	end
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
@@ -85,6 +90,10 @@ class OrdersController < InheritedResources::Base
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_number, :first_name, :last_name, :address, :city, :zip, :country, :phone, :card_number, :name_on_card, :mm_yy, :cvv)
+      params.require(:order).permit(:order_number, :card_number, :name_on_card, :mm_yy, :cvv)
+    end
+
+    def user_params
+      params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone, :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
     end
 end

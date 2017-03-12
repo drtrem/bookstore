@@ -30,3 +30,5 @@
   end
 
   t.belongs_to :author, index: true
+
+  params.require(:order).permit(:order_number, :first_name, :last_name, :address, :city, :zip, :country, :phone, :card_number, :name_on_card, :mm_yy, :cvv)
