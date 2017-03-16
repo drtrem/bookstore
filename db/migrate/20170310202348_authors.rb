@@ -1,7 +1,11 @@
 class Authors < ActiveRecord::Migration[5.0]
   def change
-  	add_column :authors, :first_name, :string
-    add_column :authors, :last_name, :string
-    add_column :authors, :description, :string
+  	create_table :products do |t|
+      t.string :first_name
+      t.string :last_name
+      t.string :description
+ 
+      t.timestamps
+    end
   end
 end

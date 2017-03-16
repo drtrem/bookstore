@@ -33,12 +33,10 @@
 .general-order-wrap
   .row
     .col-sm-4
-      .input-group.general-input-group
-        %label.font-weight-light= t('.enter_your_coupon_code')
-        %input.form-control.mb-30{type: "text", placeholder: "Enter Your Coupon Code "}
-        %div
-          %button.btn.btn-primary.mr-5.mb-15.visible-xs-inline-block= t('.apply_coupon')
-          %button.btn.btn-primary.mb-15.res-block= t('.update_cart')
+      = form_for @cupon, url: cupon_path, method: :get do |f|
+        = f.label :number, t('.enter_your_coupon_code'), { class: 'font-weight-light', for: "number" }
+        = f.text_field :number, { class: 'form-control mb-30', type: "text", placeholder: "Enter Your Coupon Code" }
+        = f.submit 'Update Cart', {class: 'btn btn-primary mb-15 res-block'}
     .col-sm-8
       .res-mr-200.text-center.general-text-right
         %p.in-gold-500.font-18= t('.order_summary')
@@ -52,11 +50,11 @@
             %td
               %p.font-16= t('.coupon')
             %td
-              %p.font-16 €0.00
+              %p.font-16= number_to_currency(@cupon.price)
           %tr
             %td
               %strong.font-18= t('.order_total')
             %td
-              %strong.font-18= number_to_currency(@cart.total_price)
+              %strong.font-18= number_to_currency(@cart.total_price - @cupon.price)
         %button.btn.btn-default.mb-20.visible-xs-inline-block= t('.checkout')
-= button_to "Checkout",  new_order_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block' 
+= button_to "Checkout", new_order_path, method: :get, class: 'btn btn-default mb-20 hidden-xs center-block' 

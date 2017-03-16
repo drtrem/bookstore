@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170311110352) do
+ActiveRecord::Schema.define(version: 20170314174005) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170311110352) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "cupon_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -73,6 +74,19 @@ ActiveRecord::Schema.define(version: 20170311110352) do
     t.datetime "updated_at", null: false
     t.string   "state"
     t.index ["product_id"], name: "index_comments_on_product_id", using: :btree
+  end
+
+  create_table "cupons", force: :cascade do |t|
+    t.integer  "number"
+    t.integer  "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "deliveries", force: :cascade do |t|
+    t.string  "method"
+    t.string  "days"
+    t.integer "price"
   end
 
   create_table "line_items", force: :cascade do |t|
@@ -114,6 +128,9 @@ ActiveRecord::Schema.define(version: 20170311110352) do
     t.datetime "updated_at",   null: false
     t.integer  "user_id"
     t.string   "state"
+    t.integer  "subtotal"
+    t.integer  "cupon_id"
+    t.integer  "delivery_id"
   end
 
   create_table "products", force: :cascade do |t|

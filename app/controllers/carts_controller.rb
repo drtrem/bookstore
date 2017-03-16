@@ -1,18 +1,21 @@
 class CartsController < InheritedResources::Base
 	#skip_before_action :authorize, only: [:create, :update, :destroy]
-  before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  before_action :set_cart, only: [:show, :edit, :update, :destroy, :cupon_apply]
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
 
   # GET /carts
   # GET /carts.json
   def index
-    @carts = Cart.all
+    #@carts = Cart.all
   end
 
   # GET /carts/1
   # GET /carts/1.json
   def show
-    @carts = Cart.all
+    #@carts = Cart.all
+    @cupon ||= Cupon.new(price: 0, id: 1)
+    @cart.cupon_id = 1
+    @cart.save
   end
 
   # GET /carts/new
@@ -22,6 +25,8 @@ class CartsController < InheritedResources::Base
 
   # GET /carts/1/edit
   def edit
+    @cupon = Cupon.find(params[:id])
+    render action: 'show'
   end
 
   # POST /carts
@@ -63,6 +68,15 @@ class CartsController < InheritedResources::Base
 			format.json { head :no_content }
 		end
 	end
+
+  def cupon_apply
+    @number = params[:cupon]
+    @cupon = Cupon.where(number: @number[:number]).first
+    @cupon ||= Cupon.new(price: 0, id: 1)
+    @cart.cupon_id = @cupon.id
+    @cart.save
+    render action: 'show'
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

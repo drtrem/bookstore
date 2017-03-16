@@ -5,17 +5,11 @@ Rails.application.routes.draw do
 
   get 'complete/create'
 
-  get 'confirm/index'
+  #get 'payment/index'
 
-  get 'confirm/new'
+  #get 'payment/new'
 
-  get 'confirm/create'
-
-  get 'payment/index'
-
-  get 'payment/new'
-
-  get 'payment/create'
+  #get 'payment/create'
 
   get 'delivery/index'
 
@@ -28,6 +22,10 @@ Rails.application.routes.draw do
   get '/en/cart_path' => 'carts#show'
 
   get '/en/product/category/:id', to: 'products#category', as: 'category' 
+
+  #get '/en/cupon_path/:id' => 'carts#cupon_apply'
+
+  get '/en/carts/:id/cupon_path', to: 'carts#cupon_apply', as: 'cupon' 
  
   #get 'home/new'
 
@@ -51,7 +49,9 @@ Rails.application.routes.draw do
 		resources :orders
 		resources :line_items
 		resources :carts
-
+    resources :payment
+    resources :confirm
+    resources :complete, only: [:show]
 		resource :product do
   		resources :comments
   	end

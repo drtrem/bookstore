@@ -1,18 +1,14 @@
 class OrdersController < InheritedResources::Base
 	include CurrentCart
 
-	before_action :set_cart, only: [:new, :create]
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+	before_action :set_cart, only: [:index, :new, :create]
+  #before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!
 
   # GET /orders
   # GET /orders.json
   def index
-    if @cart.line_items.empty?
-      redirect_to store_url, notice: "Your cart is empty"
-      return
-    end
-    @orders = Order.all
+    redirect_to delivery_new_path
   end
 
   # GET /orders/1
@@ -27,7 +23,7 @@ class OrdersController < InheritedResources::Base
 			return
 		end
     #@order = Order.new
-    @order = current_user.orders.build
+    #@order = current_user.orders.build
   end
 
   # GET /orders/1/edit
@@ -90,7 +86,7 @@ class OrdersController < InheritedResources::Base
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
-      params.require(:order).permit(:order_number, :card_number, :name_on_card, :mm_yy, :cvv)
+      params.require(:order).permit(:card_number, :name_on_card, :mm_yy, :cvv)
     end
 
     def user_params

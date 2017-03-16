@@ -22,42 +22,41 @@
     %span.step-number 5
     %span.step-text.hidden-xs Complete
 %h3.general-subtitle Credit Card
-%form.max-600.mb-80
-  .form-group.has-error
-    %label.control-label.font-weight-light{for: "cardNumber"} Card Number
-    %input#cardNumber.form-control{type: "number", name: "cardnumber", placeholder: "Card Number"}
-    %span.help-block Please enter a valid credit card number
+= form_for(@order, url: payment_index_path, method: :post, html: { :class => 'max-600 mb-80'} ) do |f|
+  .form-group
+    = f.label :card_number, 'Card Number', { class: 'control-label font-weight-lights', for: "cardNumber" }
+    = f.text_field :card_number, { class: 'form-control', id: 'cardNumber', type: "number", name: "card_number", placeholder: "Card Number" }
   .row
     .col-sm-6
       .form-group
-        %label.control-label.font-weight-light{for: "cardName"} Name on Card
-        %input#cardName.form-control{type: "text", name: "ccname", placeholder: "Name on Card"}
+        = f.label :name_on_card, 'Name on Card', { class: 'control-label font-weight-lights', for: "cardName" }
+        = f.text_field :name_on_card, { class: 'form-control', id: 'cardName', type: "text", name: "name_on_card", placeholder: "Name on Card" }
     .col-sm-3
       .form-group
-        %label.control-label.font-weight-light{for: "firstName"} MM / YY
-        %input#firstName.form-control{name: "exp-date", type: "text", placeholder: "MM / YY"}
+        = f.label :mm_yy, 'MM / YY', { class: 'control-label font-weight-lights', for: "firstName" }
+        = f.text_field :mm_yy, { class: 'form-control', id: 'firstName', name: "mm_yy", type: "text", placeholder: "MM / YY" }
     .col-sm-3
       .form-group.relative
-        %label.control-label.font-weight-light{for: "firstName"} CVV
-        %input#firstName.form-control{name: "cvc", type: "number", placeholder: "CVV"}
+        = f.label :cvv, 'Name on Card', { class: 'control-label font-weight-lights', for: "firstName" }
+        = f.text_field :cvv, { class: 'form-control', id: 'firstName', name: "cvv", type: "number", placeholder: "CVV" }
         %i.fa.fa-question-circle.general-form-help.font-18
-.general-text-align
+  .general-text-align
   %p.in-gold-500.font-18 Order Summary
   %table.general-summary-table
     %tr
       %td
         %p.font-16 Subtotal:
       %td
-        %p.font-16 €117.69
+        %p.font-16= number_to_currency(@cart.total_price + @order.total_delivery)
     %tr
       %td
         %p.font-16 Coupon:
       %td
-        %p.font-16 €0.00
+        %p.font-16= number_to_currency(@cart.total_cupon)
     %tr
       %td
         %strong.font-18 Order Total:
       %td
-        %strong.font-18 €117.69
-.text-center
-  %button.btn.btn-default.mb-80 Save and Continue
+        %strong.font-18= number_to_currency(@cart.total_price + @order.total_delivery - @cart.total_cupon)
+  .text-center
+  = f.submit 'Save and Continue', {class: 'btn btn-default mb-80'}

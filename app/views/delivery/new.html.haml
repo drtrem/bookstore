@@ -22,48 +22,6 @@
     %span.step-text.hidden-xs Complete
 %h3.general-subtitle Credit Card
 .visible-xs
-  .general-cart-item.divider-lg-bottom
-    %table.table
-      %tr
-        %td.col-half
-          %span.in-grey-600 Method
-        %td.col-half
-          .form-group.radio.mt-0.mb-0
-            %label.font-16.font-weight-light.pl-0
-              %input.radio-input{type: "radio", hidden: "true"}
-              %span.radio-icon
-              %span.radio-text Delivery Next Day!
-      %tr
-        %td
-          %span.in-grey-600 Days
-        %td
-          %span.font-16.font-weight-light 3 to 7 days
-      %tr
-        %td
-          %span.in-grey-600 Price
-        %td
-          %span.font-16.in-gold-500 €5.00
-  .general-cart-item.divider-lg-bottom.mb-30
-    %table.table
-      %tr
-        %td.col-half
-          %span.in-grey-600 Method
-        %td.col-half
-          .form-group.radio.mt-0.mb-0
-            %label.font-16.font-weight-light.pl-0
-              %input.radio-input{type: "radio", hidden: "true"}
-              %span.radio-icon
-              %span.radio-text Delivery Next Day!
-      %tr
-        %td
-          %span.in-grey-600 Days
-        %td
-          %span.font-16.font-weight-light 3 to 7 days
-      %tr
-        %td
-          %span.in-grey-600 Price
-        %td
-          %span.font-16.in-gold-500 €5.00
 .hidden-xs.mb-res-50
   %table.table.table-hover
     %thead
@@ -75,45 +33,43 @@
         %th
           %span.in-grey-600 Price
     %tbody
+    = form_for current_user, :url => new_payment_path, :method => :get do |f|
+      %tr
+        %td
+          .form-group.radio.mt-0.mb-0
+            = f.radio_button :id, '2', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;' }
+            = f.label :delivery, 'By train', :value => '2', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
+        %td
+          %span 5 days
+        %td
+          %span.font-16.in-gold-500 €10.00
       %tr
         %td
           .form-group.radio.mt-0.mb-0
             %label.font-16.font-weight-light.pl-0
-              %input.radio-input{type: "radio", hidden: "true"}
-              %span.radio-icon
-              %span.radio-text Delivery Next Day!
+              = f.radio_button :id, '1', { :class => 'radio-icon radio-text text-center radio-input', :style => 'margin-left: 5px;' }
+              = f.label :delivery, 'By air', :value => '1', :class => 'font-16 font-weight-light pl-0', :style => 'margin-left: 50px;'
         %td
-          %span 3 to 7 days
+          %span 2 days
         %td
-          %span.font-16.in-gold-500 €28.50
-      %tr
-        %td
-          .form-group.radio.mt-0.mb-0
-            %label.font-16.font-weight-light.pl-0
-              %input.radio-input{type: "radio", hidden: "true"}
-              %span.radio-icon
-              %span.radio-text Delivery Next Day!
-        %td
-          %span 3 to 7 days
-        %td
-          %span.font-16.in-gold-500 €28.50
-.general-text-align
-  %p.in-gold-500.font-18 Order Summary
-  %table.general-summary-table
-    %tr
-      %td
-        %p.font-16 Subtotal:
-      %td
-        %p.font-16 €117.69
-    %tr
-      %td
-        %p.font-16 Coupon:
-      %td
-        %p.font-16 €0.00
-    %tr
-      %td
-        %strong.font-18 Order Total:
-      %td
-        %strong.font-18 €117.69
-.text-center
-  %button.btn.btn-default.mb-20 Save and Continue
+          %span.font-16.in-gold-500 €20.00
+      .general-text-align
+        %table.general-summary-table
+          %tr
+            %td
+              %p.font-16 Subtotal:
+            %td
+              %p.font-16= number_to_currency(@cart.total_price)
+          %tr
+            %td
+              %p.font-16 Coupon:
+            %td
+              %p.font-16= number_to_currency(@cart.total_cupon)
+          %tr
+            %td
+              %strong.font-18 Order Total:
+            %td
+              %strong.font-18= number_to_currency(@cart.total_price - @cart.total_cupon)
+      .text-center
+        = f.submit 'Save and Continue', {class: 'btn btn-default mb-200', style: 'margin-bottom: 70px;'}
+        
