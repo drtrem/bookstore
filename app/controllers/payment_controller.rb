@@ -1,21 +1,18 @@
 class PaymentController < ApplicationController
 	include CurrentCart
 
-	before_action :set_cart, only: [:new, :create]
+	before_action :authenticate_user!
+	before_action :set_cart, only: [:index, :create]
 
   def index
-  	redirect_to new_confirm_path
-  end
-
-  def new
   	if params[:user].nil?
-			redirect_to delivery_new_path, notice: "Your cart is empty"
+			redirect_to delivery_index_path, notice: "Your cart is empty"
 			return
 		end
   	@order = Order.new
   	@order.delivery_id = params[:user][:id]
   	session[:delivery_id] = params[:user][:id]
-  	render 'payment/new'
+  	render 'payment/index'
   end
 
   def create
@@ -25,17 +22,12 @@ class PaymentController < ApplicationController
 		@order.delivery_id = session[:delivery_id]
 		@delivery = Delivery.find(@order.delivery_id)
 		@order.subtotal = @order.total_price + @order.total_delivery - @order.total_cupon
-		respond_to do |format|
-			if @order.save
-				session[:order_id] = @order.id
-				format.html { render 'confirm/new', notice:'Thank you for your order.' }
-				format.json { render action: 'show', status: :created, location: @order }
-			else
-				@cart = current_cart
-				format.html { render action: 'new' }
-				format.json { render json: @order.errors, status: :unprocessable_entity }
-			end
-		end
+		if @order.save
+			session[:order_id] = @order.id
+			render 'confirm/index'		
+		else
+			render 'payment/index'
+		end		
   end
 
   private

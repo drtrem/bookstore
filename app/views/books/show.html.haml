@@ -1,6 +1,7 @@
 %a.general-back-link{href:"#{product_path}"}
   %i.fa.fa-long-arrow-left.mr-15
   Back to results
+  = @line_items.inspect
 .row
   .col-sm-6
     .product-gallery
@@ -21,8 +22,8 @@
         %p.h1.in-gold-500.mt-10= "€#{@product.price}0"
       .col-xs-5.col-md-3
         .input-group.general-position
-          = link_to '', line_item_path(@product.id), method: :patch, class: "input-link fa fa-minus line-height-40"
-          %input.form-control.quantity-input{:type => "text", :value => "@cart.line_items.quantity"}
+          = link_to '', line_item_path(product_id: @product.id), method: :patch, class: "input-link fa fa-minus line-height-40"
+          %input.form-control.quantity-input{:type => "text", :value => "#{1 || @line_items.quantity}"}
           = link_to '', line_items_path(product_id: @product.id), remote: true, method: :post, class: "input-link fa fa-plus line-height-40"
       .col-xs-7.col-md-5
         = button_to 'Add to Cart', line_items_path(product_id: @product.id), remote: true, class: "btn btn-default pull-right general-position"

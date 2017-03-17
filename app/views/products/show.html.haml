@@ -7,16 +7,16 @@
         %i.fa.fa-angle-down.dropdown-icon
       %ul.dropdown-menu
         %li
-          %a{href: "#"} Newest first
+          = link_to 'Newest firstt', product_path(:sort => "created_at", :direction => "desc"), method: "get"
         %li
-          %a{href: "#"} Popular first
+          = link_to 'Popular first', product_path(:sort => "views", :direction => "desc"), method: "get"
         %li
-          %a{href: "#"} Price: Low to hight
+          = link_to 'Price: Low to hight', product_path(:sort => "price", :direction => "asc"), method: "get"
         %li
-          %a{href: "#"} Price: Low to hight
+          = link_to 'Price: Hight to low', product_path(:sort => "price", :direction => "desc"), method: "get"
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
-      %a.filter-link{href: "#{product_path}"}
+      %a.filter-link{href: "#{category_path('all')}"}
         All
         %span.badge.general-badge= Product.all.size
     - @categories.each do |category|

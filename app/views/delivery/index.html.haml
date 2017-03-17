@@ -33,7 +33,7 @@
         %th
           %span.in-grey-600 Price
     %tbody
-    = form_for current_user, :url => new_payment_path, :method => :get do |f|
+    = form_for current_user, :url => payment_index_path, :method => :get do |f|
       %tr
         %td
           .form-group.radio.mt-0.mb-0

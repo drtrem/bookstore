@@ -24,15 +24,9 @@ class ApplicationController < ActionController::Base
 
 	protected
 
-		def configure_permitted_parameters
-	  	devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
-	  	devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:email, :password, :password_confirmation) }
-	  	devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :password_confirmation) }
-		end
-
-  #before_action :set_locale
- 
-  #def set_locale
-  #  I18n.locale = params[:locale] || I18n.default_locale
-  #end
+	def configure_permitted_parameters
+  	devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
+  	devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:email, :password, :password_confirmation) }
+  	devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :password_confirmation) }
+	end
 end

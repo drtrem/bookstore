@@ -1,14 +1,13 @@
 class BooksController < ApplicationController
-	def index
-    @product = Product.find_by_id(params[:id])
-  end
+	include CurrentCart
+
+	before_action :set_cart, only: [:show]
 
   def show
-    @product = Product.find_by_id(params[:id]) 
+  	@product = Product.find_by_id(params[:id])
+    @line_items = LineItem.where("product_id = :product_id AND cart_id = :cart_id",{product_id: params[:id], cart_id: @cart.id}).first
+    @product.views = @product.views + 1
+		@product.save
   end
 
-  private
-    def book_params
-      params.require(:book).permit(:title, :authors, :price, :quantity, :description, :year, :dimensions, :materials, :image_url)
-  	end
 end
