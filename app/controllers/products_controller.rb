@@ -1,7 +1,9 @@
 class ProductsController < ApplicationController
 	
-	def show 
-		session[:category] ||= [1,2,3]
+	def show
+		@catego = Array.new
+		Category.all.each {|c| @catego << c.id}
+		session[:category] ||= @catego
 		@product = Product.order(sort_column + ' ' + sort_direction).where(category_id: session[:category])
 		@categories = Category.all
 	end
@@ -9,7 +11,9 @@ class ProductsController < ApplicationController
 	def category
 		if params[:id] == 'all'
 			@product = Product.order(sort_column + ' ' + sort_direction).where(category_id: session[:category])
-			session[:category] = [1,2,3]
+			@catego = Array.new
+			Category.all.each {|c| @catego << c.id}
+			session[:category] = @catego
 		else
 			session[:category] = params[:id]
 			@product = Product.where(category_id: params[:id])

@@ -7,13 +7,17 @@
         %i.fa.fa-angle-down.dropdown-icon
       %ul.dropdown-menu
         %li
-          = link_to 'Newest firstt', product_path(:sort => "created_at", :direction => "desc"), method: "get"
+          = link_to 'Newest first', product_path(:sort => "created_at", :direction => "desc"), method: "get"
         %li
           = link_to 'Popular first', product_path(:sort => "views", :direction => "desc"), method: "get"
         %li
           = link_to 'Price: Low to hight', product_path(:sort => "price", :direction => "asc"), method: "get"
         %li
           = link_to 'Price: Hight to low', product_path(:sort => "price", :direction => "desc"), method: "get"
+        %li
+          = link_to 'Title A-Z', product_path(:sort => "title", :direction => "asc"), method: "get"
+        %li
+          = link_to 'Title Z-A', product_path(:sort => "title", :direction => "desc"), method: "get"
   %ul.list-inline.pt-10.mb-25.mr-240
     %li.mr-35
       %a.filter-link{href: "#{category_path('all')}"}
@@ -55,7 +59,9 @@
         %a{href: "#"} Price: Low to hight`
 .mb-120
   .row
+    - count = 0
     - @product.each do |product|
+    - count +=1
       .col-xs-6.col-sm-3
         .general-thumb-wrap
           .thumbnail.general-thumbnail
@@ -70,6 +76,8 @@
           %p.general-title= product.title
           %p.font-16.in-gold-500= number_to_currency(product.price)
           %span.divider-sm
-          %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}" 
+          %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}"
+      - if count%4 == 0
+        <div class="row mb-25">
   .text-center
     %button.btn.btn-primary View More

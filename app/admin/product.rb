@@ -1,13 +1,12 @@
 ActiveAdmin.register Product do
 
-	permit_params :title, :author_id, :category_id, :price, :quantity, :description, :year, :dimensions, :materials, :image_url
+	permit_params :title, :author_id, :category_id, :price, :description, :year, :dimensions, :materials, :image_url
 
 	index do
 		column :title
 		column :author_id
 		column :category_id
 		column :description
-		column :quantity
 		column :year
 		column :dimensions
 		column :materials

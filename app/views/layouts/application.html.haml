@@ -32,17 +32,36 @@
               %li
                 %a{href: "#{home_index_path}"}= t('.home')
                 %a{type: "button", 'data-toggle': "collapse", href: "#{product_path}", 'aria-expanded': "false", 'aria-controls': "menu"}= t('.shop')
-              %li
-                %a{href: "#"}= t('.my_account')
+                %ul.dropdown-menu
+                  - @categories.each do |category|
+                    %li
+                      %a.filter-link{href: "#{category_path(category.id)}"}= category.category
+                  - if user_signed_in?
+                    <li class="divider" role="separator"></li>
+                    <li><a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
+              - if user_signed_in?
+                <li><a href="/settings/index?locale=en">My account</a></li>
+              - else
+                <li><a href="/users/sign_in?" role="button">Sign in</a></li>
+                <li><a href="/users/sign_up?" role="button">Sign up</a></li>
           .hidden-xs
             %ul.nav.navbar-nav
               %li
-                = link_to('Logout', destroy_user_session_path, :method => :delete)
                 %a{href: "#{home_index_path}"}= t('.home')
               %li.dropdown
                 %a.dropdown-toggle{href: "#{product_path}", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')
-              %li
-                %a{href: "#"}= t('.my_account')
+                %ul.dropdown-menu
+                  - @categories.each do |category|
+                    %li
+                      %a.filter-link{href: "#{category_path(category.id)}"}= category.category
+                  - if user_signed_in?
+                    <li class="divider" role="separator"></li>
+                    <li><a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
+              - if user_signed_in?
+                <li><a href="/settings/index">My account</a></li>
+              - else
+                <li><a href="/users/sign_in?" role="button">Sign in</a></li>
+                <li><a href="/users/sign_up?" role="button">Sign up</a></li>
     %main.container
       = yield
     %footer.navbar.navbar-inverse.mb-0
@@ -51,13 +70,12 @@
           .col-sm-9
             %ul.list-inline.general-align.mb-25
               %li
-                %a.nav-link{href: "home_index_path"}= t('.home')
+                %a.nav-link{href: "#{home_index_path}"}= t('.home')
               %li
                 %a.nav-link{href: "#{product_path}"}= t('.shop')
-              %li
-                %a.nav-link{href: "new_order_path"}= t('.orders')
-              %li
-                %a.nav-link{href: "#"}= t('.settings')
+              - if user_signed_in?
+                <li><a class="nav-link" href="/en/view_orders">Orders</a></li>
+                <li><a class="nav-link" href="/settings/index?">Settings</a></li>
           .col-sm-3
             %p.general-nav-mail= t('.email')
             %p.general-nav-number= t('.telephone')

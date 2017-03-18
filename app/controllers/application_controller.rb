@@ -1,10 +1,12 @@
 class ApplicationController < ActionController::Base
+
 	include CurrentCart
 	include CanCan::ControllerAdditions
 	
   protect_from_forgery with: :exception
   before_action :set_i18n_locale_from_params, :set_cart
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_category
 
 	protected
 		def set_i18n_locale_from_params
@@ -24,9 +26,13 @@ class ApplicationController < ActionController::Base
 
 	protected
 
+	def set_category
+		@categories = Category.all
+	end
+
 	def configure_permitted_parameters
   	devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:email, :password, :password_confirmation) }
-  	devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:email, :password, :password_confirmation) }
+  	devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:email, :password, :password_confirmation, :current_password) }
   	devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :password_confirmation) }
 	end
 end

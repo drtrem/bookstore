@@ -53,6 +53,12 @@
         .form-group
           = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
           = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+        .text.center
+          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20'}
+    .col-md-5.col-md-offset-1.mb-60
+      .visible-xs.visible-sm
+        %h3.general-subtitle Shipping Address
+      = form_for current_user, :url => orders_path, :method => :post do |f|
         .form-group
           = f.label :shipping_first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "shipping_first_name" }
           = f.text_field :shipping_first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
@@ -80,6 +86,8 @@
             %span.checkbox-icon
               %i.fa.fa-check
             %span.checkbox-textt= t('.use_billing_adress')
+        .text.center
+          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20'}
         .general-text-align.mb-60
           %p.in-gold-500.font-18= t('.order_summary')
           %table.general-summary-table
@@ -93,4 +101,3 @@
                 %p.font-16= t('.order_total')
               %td
                 %p.font-16= number_to_currency(@cart.total_price - @cart.total_cupon)
-          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20'}

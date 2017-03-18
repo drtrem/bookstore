@@ -1,5 +1,7 @@
 ActiveAdmin.register Order do
 
+	permit_params :order_number, :card_number, :name_on_card, :mm_yy, :cvv, :state, :subtotal, :cupon_id, :delivery_id
+
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
