@@ -59,25 +59,25 @@
         %a{href: "#"} Price: Low to hight`
 .mb-120
   .row
-    - count = 0
-    - @product.each do |product|
-    - count +=1
-      .col-xs-6.col-sm-3
-        .general-thumb-wrap
-          .thumbnail.general-thumbnail
-            %img.img-shadow.general-thumbnail-img{src: product.image_url, alt: "design-book"}
-            .thumb-hover
-              .general-thumb-link-wrap
-                %a.thumb-hover-link{href: "#{book_path(id: product)}"}
-                  %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
-                %a.thumb-hover-link{href: "#{line_items_path(product_id: product)}"}
-                  %i.fa.fa-shopping-cart.thumb-icon
-        .general-thumb-info
-          %p.general-title= product.title
-          %p.font-16.in-gold-500= number_to_currency(product.price)
-          %span.divider-sm
-          %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}"
-      - if count%4 == 0
-        <div class="row mb-25">
+    - paginate @product
+    - @product.each_slice(4) do |row_product|
+      .row.mb-25
+        - row_product.each do |product|
+          .col-xs-6.col-sm-3
+            .general-thumb-wrap
+              .thumbnail.general-thumbnail
+                %img.img-shadow.general-thumbnail-img{src: product.image_url, alt: "design-book"}
+                .thumb-hover
+                  .general-thumb-link-wrap
+                    %a.thumb-hover-link{href: "#{book_path(id: product)}"}
+                      %i.fa.fa-eye.thumb-icon{'aria-hidden': "true"}
+                    %a.thumb-hover-link{href: "#{line_items_path(product_id: product)}"}
+                      %i.fa.fa-shopping-cart.thumb-icon
+            .general-thumb-info
+              %p.general-title= product.title
+              %p.font-16.in-gold-500= number_to_currency(product.price)
+              %span.divider-sm
+              %p.in-grey-600.small= "#{product.author.first_name} #{product.author.last_name}"
   .text-center
-    %button.btn.btn-primary View More
+    = link_to_prev_page @product, 'Prev Page', class: 'btn btn-primary'
+    = link_to_next_page @product, 'Next Page', class: 'btn btn-primary'
