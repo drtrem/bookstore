@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  #after_create :send_admin_mail
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :omniauthable
 
@@ -8,12 +10,32 @@ class User < ApplicationRecord
 
   devise :omniauthable, :omniauth_providers => [:facebook]
 
+  validates :first_name, :last_name, :address, :city, :zip, :country, :phone, presence: true, on: :update
+  validates :first_name, :last_name, :address, :city, :zip, :country, :phone, length: { maximum: 50 }, on: :update
+  validates :first_name, :last_name, :city, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }, on: :update
+  validates :zip, length: { maximum: 10 }, format: { with: /\A[0-9]+\z/, message: "only allows numbers" }, on: :update
+  validates :phone, length: { maximum: 15 }, format: { with: /\A^\+[0-9]+\z/, message: "should starts with +" }, on: :update
+
+  #validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, presence: true, on: :update
+  #validates :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone, length: { maximum: 50 }, on: :update
+  #validates :shipping_first_name, :shipping_last_name, :shipping_city, format: { with: /\A[a-zA-Z]+\z/, message: "only allows letters" }, on: :update
+  #validates :shipping_zip, length: { maximum: 10 }, format: { with: /\A[0-9]+\z/, message: "only allows numbers" }, on: :update
+  #validates :shipping_phone, length: { maximum: 15 }, format: { with: /\A^\+[0-9]+\z/, message: "should starts with +" }, on: :update
+
+  def role?(r)
+    role.include? r.to_s
+  end
+
+  def send_admin_mail
+    UserMailer.send_new_user_message(self).deliver
+  end
+
   def self.from_omniauth(auth)
 	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
 	    user.email = auth.info.email
 	    user.password = Devise.friendly_token[0,20]
-	    user.name = auth.info.name   # assuming the user model has a name
-	    user.image = auth.info.image # assuming the user model has an image
+	    #user.name = auth.info.name   # assuming the user model has a name
+	    #user.image = auth.info.image # assuming the user model has an image
 	    # If you are using confirmable and the provider(s) you use validate emails, 
 	    # uncomment the line below to skip the confirmation emails.
 	    # user.skip_confirmation!

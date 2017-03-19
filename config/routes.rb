@@ -14,7 +14,10 @@ Rails.application.routes.draw do
 
   get '/en/carts/:id/cupon_path', to: 'carts#cupon_apply', as: 'cupon' 
   
-  devise_for :admin_users, ActiveAdmin::Devise.config
+  #devise_for :admin_users, {class_name: 'User'}.merge(ActiveAdmin::Devise.config)
+  #ActiveAdmin.routes(self)
+
+  #devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
         patch 'update_password'
       end
     end
+    #resources :users
   	resources :home, only: [:index, :create]
     resources :books, only: [:show]
 		resources :orders, only: [:index, :create]

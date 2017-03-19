@@ -27,7 +27,7 @@
     %h3.general-subtitle Shipping Address
     %p.general-address
       = "#{current_user.shipping_first_name} #{current_user.shipping_last_name}"
-      %span.general-edit edit
+      %span.general-edit= link_to "edit", settings_index_path, method: :get, class: 'general-edit' 
       %br
       = current_user.shipping_address
       %br
@@ -40,7 +40,7 @@
     %h3.general-subtitle Billing Address
     %p.general-address
       = "#{current_user.first_name} #{current_user.last_name}"
-      %span.general-edit edit
+      %span.general-edit= link_to "edit", settings_index_path, method: :get, class: 'general-edit' 
       %br
       = current_user.address
       %br
@@ -53,14 +53,14 @@
     %h3.general-subtitle Shipments
     %p.general-address
       = "Delivery #{@delivery.days} Days"
-      %span.general-edit edit
+      %span.general-edit= link_to "edit", delivery_index_path, method: :get, class: 'general-edit' 
       %br
       = @delivery.method
   .col-sm-3
     %h3.general-subtitle Payment Information
     %p.general-address
       = @order.card_number
-      %span.general-edit edit
+      %span.general-edit= link_to "edit", payment_index_path, method: :get, class: 'general-edit' 
       %br
       = @order.mm_yy
 .hidden-xs.divider-lg.pt-20

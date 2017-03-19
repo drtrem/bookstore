@@ -10,18 +10,17 @@
         = f.submit 'Save', {class: 'btn btn-default mb-35'}
   .col-sm-5.col-sm-offset-1
     %p.in-gold-500.font-18.mb-25 Password
-    = form_for( current_user, :url => { :action => "update_password" }, html: { :class => 'general-form-md pb-25'} ) do |f|
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "general-form" }) do |f|
+      = devise_error_messages!
+      = f.hidden_field :reset_password_token
       .form-group.mb-30
-        = f.label :current_password, 'Old Password', { class: 'control-label font-weight-lights', for: "current_password" }
-        = f.password_field :current_password, {name:"current_password", class: 'form-control', id: 'oldPassword', type: "password", placeholder: "Old Password" }
-      .form-group.mb-30    
-        = f.label :password, 'New Password', { class: 'control-label font-weight-lights', for: "password" }
-        = f.password_field :password, {name:"password", class: 'form-control', id: 'password', type: "password", placeholder: "New Password", autoomplete: "off" }
-      .form-group.mb-30
-        = f.label :password_confirmation, 'Confirm Password', { class: 'control-label font-weight-lights', for: "password_confirmation" }
-        = f.password_field :password_confirmation, {name:"password_confirmation", class: 'form-control', id: 'confirmPassword', type: "password", placeholder: "Confirm Password" }
-      .general-text-align
-        = f.submit 'Save', {class: 'btn btn-default mb-35'}
+        %label.control-label.font-weight-light{for: "password"} Type a new Password
+        = f.password_field :password, autofocus: true, autocomplete: "off", placeholder: "Type a new Password", id: "password", class: "form-control"
+      .form-group.mb-40
+        %label.control-label.font-weight-light{for: "confirmPassword"} Confirm Password
+        = f.password_field :password_confirmation, autocomplete: "off", placeholder: "Confirm Password", id: "confirmPassword", class: "form-control"
+      .actions
+        = f.submit "Change", class: "btn btn-default center-block mb-20"
   .col-sm-12
     .divider-lg-bottom
     %p.in-gold-500.font-18.mb-25.pt-20 Remove Account

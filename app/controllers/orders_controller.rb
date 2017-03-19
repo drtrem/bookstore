@@ -5,6 +5,7 @@ class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
 
   def index
+    @user = User.find(current_user.id)
     if @cart.line_items.empty?
       redirect_to store_url, notice: "Your cart is empty"
       return
@@ -23,6 +24,10 @@ class OrdersController < InheritedResources::Base
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone, :shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
+    if params[:user].has_key?(:first_name)
+      params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
+    else
+      params.require(:user).permit(:shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
+    end
   end
 end
