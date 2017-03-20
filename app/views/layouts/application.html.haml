@@ -33,9 +33,9 @@
                 %a{href: "#{home_index_path}"}= t('.home')
                 %a{type: "button", 'data-toggle': "collapse", href: "#{product_path}", 'aria-expanded': "false", 'aria-controls': "menu"}= t('.shop')
                 %ul.dropdown-menu
-                  - @categories.each do |category|
+                  - @labels.each do |label|
                     %li
-                      %a.filter-link{href: "#{category_path(category.id)}"}= category.category
+                      %a.filter-link{href: "#{category_path(label.id)}"}= label.category
                   - if user_signed_in?
                     <li class="divider" role="separator"></li>
                     <li><a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
@@ -51,9 +51,9 @@
               %li.dropdown
                 %a.dropdown-toggle{href: "#{product_path}", 'data-toggle': "dropdown", role: "button", 'aria-haspopup': "true", 'aria-expanded': "false"}= t('.shop')
                 %ul.dropdown-menu
-                  - @categories.each do |category|
+                  - @labels.each do |label|
                     %li
-                      %a.filter-link{href: "#{category_path(category.id)}"}= category.category
+                      %a.filter-link{href: "#{category_path(label.id)}"}= label.category
                   - if user_signed_in?
                     <li class="divider" role="separator"></li>
                     <li><a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>

@@ -7,6 +7,8 @@ class Product < ApplicationRecord
 	belongs_to :author
 	belongs_to :category
 
+	mount_uploader :image_url, PictureUploader
+
 	def self.latest
 		Product.order(:updated_at).last
 	end

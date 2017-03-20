@@ -1,11 +1,13 @@
 class ApplicationController < ActionController::Base
 
+	include CurrentCart
 	include CanCan::ControllerAdditions
 	
   protect_from_forgery with: :exception
   before_action :set_i18n_locale_from_params
   before_action :configure_permitted_parameters, if: :devise_controller?
-  before_action :set_category
+  before_action :set_cart
+  before_action :set_labels
 
   def authenticate_admin!
  		redirect_to new_user_session_path unless current_user.role?(:admin)
@@ -29,9 +31,8 @@ class ApplicationController < ActionController::Base
 
 	protected
 
-	def set_category
-		@categories = Category.all
-		@cart = Cart.find(session[:cart_id])
+	def set_labels
+		@labels = Category.all
 	end
 
 	def configure_permitted_parameters
