@@ -43,6 +43,10 @@ include CarrierWave::MiniMagick
     %w(jpg jpeg gif png)
   end
 
+  def cache_dir
+    "#{Rails.root}/tmp/uploads"
+  end
+
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
