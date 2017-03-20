@@ -6,9 +6,9 @@ include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   if Rails.env.production?
-    cache :fog
+    cache_dir :fog
   else
-    cache :file
+    cache_dir :file
   end
 
   # Override the directory where uploaded files will be stored.
