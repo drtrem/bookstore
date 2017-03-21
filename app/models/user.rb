@@ -36,7 +36,7 @@ class User < ApplicationRecord
 	    user.password = Devise.friendly_token[0,20]
       #user.skip_password_validation = true
       #user.skip_confirmation!
-      omniauth = request.env['omniauth.auth']
+      omniauth = session["devise.facebook_data"]
       user.first_name = omniauth['info']['first_name']
       user.last_name = omniauth['info']['last_name']
       user.pictures = omniauth['info']['image']
