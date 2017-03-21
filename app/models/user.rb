@@ -36,9 +36,10 @@ class User < ApplicationRecord
 	    user.password = Devise.friendly_token[0,20]
       #user.skip_password_validation = true
       #user.skip_confirmation!
-      user.first_name = auth.info.first_name
-      user.last_name = auth.info.last_name
-      user.pictures = auth.info.picture
+      omniauth = request.env['omniauth.auth']
+      user.first_name = omniauth['info']['first_name']
+      user.last_name = omniauth['info']['last_name']
+      user.pictures = omniauth['info']['image']
       user.save
 	  end
 	end
