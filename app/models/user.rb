@@ -32,10 +32,6 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
 	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user = User.new(
-          email: email ? email : "#{TEMP_EMAIL_PREFIX}-#{auth.uid}-#{auth.provider}.com",
-          password: Devise.friendly_token[0,20]
-        )
 	    user.email = auth.info.email
 	    user.password = Devise.friendly_token[0,20]
       user.skip_password_validation = true
