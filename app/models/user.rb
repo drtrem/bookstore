@@ -35,7 +35,7 @@ class User < ApplicationRecord
 	    user.email = auth.info.email
 	    user.password = Devise.friendly_token[0,20]
       #user.skip_password_validation = true
-      user.skip_confirmation!
+      #user.skip_confirmation!
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
       user.pictures = auth.info.picture
