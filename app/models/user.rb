@@ -38,7 +38,6 @@ class User < ApplicationRecord
       user.skip_confirmation!
       user.first_name = auth.info.first_name
       user.last_name = auth.info.last_name
-      user.city = auth.info.user_hometown
       user.pictures = auth.info.picture
       user.save!
 	  end
