@@ -26,10 +26,10 @@ default: &default
 
 development:
   <<: *default
-  database: d1be0jlpj1raon
-  host: ec2-54-163-234-140.compute-1.amazonaws.com
-  username: pndxfhfafgyovl
-  password: aec064d7cdb0b3d9bec502182d81bb54bee34135af1d1e0d6887ca1e1d941785
+  database: bookstore_development
+  host: localhost
+  username: pguser
+  password: 1111
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

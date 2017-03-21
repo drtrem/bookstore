@@ -15,8 +15,6 @@ Devise.setup do |config|
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
   config.omniauth :facebook, "1893916007558817", "5d9022504e8c28528d32791b2fc0d034"
 
-  config.action_mailer.default_url_options = { host: 'https://bookstoredr.herokuapp.com'}
-
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
