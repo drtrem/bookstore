@@ -1,6 +1,4 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
   #after_create :send_admin_mail
 
   devise :database_authenticatable, :registerable,
