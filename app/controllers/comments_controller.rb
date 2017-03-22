@@ -1,19 +1,11 @@
 class CommentsController < ApplicationController
 	def create
-    @product = Product.find(params[:product_id])
-    @comment = @product.comments.create(comment_params)
-    redirect_to product_path(@product)
-  end
- 
-  def destroy
-    @product = Product.find(params[:product_id])
-    @comment = @product.comments.find(params[:id])
-    @comment.destroy
-    redirect_to product_path(@product)
+    @comment = Comment.create(comment_params)
+    redirect_to book_path(params[:comment][:product_id])
   end
  
   private
     def comment_params
-      params.require(:comment).permit(:commenter, :body)
+      params.require(:comment).permit(:product_id, :user_id, :commenter, :body, :rate)
     end
 end

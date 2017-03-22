@@ -50,7 +50,7 @@
         %p.general-item-info.pull-right= @product.materials
         %p.break-word Materials
 .mb-80
-  %h3.in-gold-500.mb-25 Reviews (3)
   %ul.media-list
-    = render @product.comments
-    = render 'comments/form'
+    = render 'comments/comment'
+    - if user_signed_in?
+      = render 'books/form_review'
