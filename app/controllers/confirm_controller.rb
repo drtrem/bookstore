@@ -5,8 +5,9 @@ class ConfirmController < ApplicationController
 	before_action :set_cart, only: [:index]
 
   def index
+  	session[:return_to] = true
     @order = Order.find(session[:order_id])
     @delivery = Delivery.find(@order.delivery_id)
-    render 'confirm/index' 
+    render 'confirm/index'
   end
 end

@@ -33,7 +33,6 @@
       %p.general-address.mb-30= @order.updated_at.strftime("%B %d, %Y")
     %p.general-address
       = "#{current_user.first_name} #{current_user.last_name}"
-      %span.general-edit= link_to "edit", settings_index_path, method: :get, class: 'general-edit' 
       %br
       = current_user.address
       %br
@@ -80,7 +79,7 @@
       %td
         %p.font-16 Subtotal:
       %td
-        %p.font-16= number_to_currency(@order.total_price + @order.total_delivery)
+        %p.font-16= number_to_currency(@order.subtotal)
     %tr
       %td
         %p.font-16 Coupon:
@@ -90,6 +89,6 @@
       %td
         %strong.font-18 Order Total:
       %td
-        %strong.font-18= number_to_currency(@order.total_price + @order.total_delivery - @order.total_cupon)
+        %strong.font-18= number_to_currency(@order.subtotal - @order.total_cupon)
 .text-center
   = button_to "Back to Store", home_index_path, method: :get, class: 'btn btn-default mb-20'

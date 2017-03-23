@@ -39,7 +39,7 @@ Rails.application.routes.draw do
     resources :payment, only: [:index, :create]
     resources :confirm, only: [:index]
     resources :complete, only: [:index]
-    resources :delivery, only: [:index]
+    resources :delivery, only: [:index, :create]
     resources :view_orders, only: [:index]
 		resource :product do
   		resources :comments

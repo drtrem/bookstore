@@ -5,14 +5,15 @@ class PaymentController < ApplicationController
 	before_action :set_cart, only: [:index, :create]
 
   def index
-  	if params[:user].nil?
-			redirect_to delivery_index_path, notice: "Your cart is empty"
-			return
-		end
-  	@order = Order.new
-  	@order.delivery_id = params[:user][:id]
-  	session[:delivery_id] = params[:user][:id]
-  	render 'payment/index'
+  	if session[:return_to] == nil
+  		@order = Order.new
+  		@order.delivery_id = session[:delivery_id]
+  		render 'payment/index'
+  	else
+  		session[:return_to] = true
+  		@order = Order.find_by_id(session[:order_id])
+  		render 'payment/index'
+  	end
   end
 
   def create
@@ -25,6 +26,7 @@ class PaymentController < ApplicationController
 		@order.in_queue
 		if @order.save
 			session[:order_id] = @order.id
+			session[:return_to] = true
 			render 'confirm/index'		
 		else
 			render 'payment/index'

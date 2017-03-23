@@ -3,6 +3,7 @@ class CompleteController < ApplicationController
 
   before_action :authenticate_user!
 	before_action :set_cart, only: [:index]
+  after_action :clear_line_items, only: [:index]
 
   def index
     @order = Order.find(session[:order_id])
@@ -11,6 +12,7 @@ class CompleteController < ApplicationController
     Cart.destroy(session[:cart_id])
     session[:cart_id] = nil
     session[:order_id] = nil
+    session[:return_to] = nil
     render 'complete/index'  
   end
 end

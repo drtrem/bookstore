@@ -4,5 +4,4 @@ submitForms = function(){
 
 $('#3').click(function(){
     $("#1").click();
-    $("#2").click();
 })
