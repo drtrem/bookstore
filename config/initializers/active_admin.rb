@@ -124,10 +124,10 @@ config.authentication_method = :authenticate_admin!
   # This allows your users to comment on any resource registered with Active Admin.
   #
   # You can completely disable comments:
-  # config.comments = false
+  config.comments = false
   #
   # You can change the name under which comments are registered:
-  # config.comments_registration_name = 'AdminComment'
+  config.comments_registration_name = 'AdminComment111'
   #
   # You can change the order for the comments and you can change the column
   # to be used for ordering:

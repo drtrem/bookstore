@@ -18,8 +18,10 @@
 //   .status_tag { background: #6090DB; }
 
 .status_tag {
-  &.in_queued { background: green; }
-  &.canceled { background: red; }
+  &.in_queued { background: orange; }
+  &.delivering { background: blue; }
+  &.in_delivering { background: green; }
+  &.canceling { background: red; }
 };
 
 .mini {

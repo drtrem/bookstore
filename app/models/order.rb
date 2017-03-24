@@ -1,5 +1,6 @@
 class Order < ApplicationRecord
 	include AASM
+	attr_accessor :active_admin_requested_event
 
 	has_many :line_items, dependent: :destroy
 	belongs_to :user
@@ -11,26 +12,21 @@ class Order < ApplicationRecord
   validates :cvv, length: { maximum: 4 }
 
 	aasm :column => 'state' do
-		state :in_progress, :initial => true
-    state :in_queued
-    state :in_delivered
-    state :delivered
-    state :canceled
-
-    event :in_queue do
-      transitions :from => :in_progress, :to => :in_queued
-    end
+    state :in_queued, :initial => true
+    state :in_delivering
+    state :delivering
+    state :canceling
 
     event :in_delivery do
-      transitions :from => :in_queue, :to => :in_delivered
+      transitions :from => :in_queued, :to => :in_delivering
     end
 
     event :delivery do
-      transitions :from => :in_delivery, :to => :delivered
+      transitions :from => :in_delivering, :to => :delivering
     end
 
     event :cancel do
-      transitions :from => [:in_queue, :in_delivery, :delivered], :to => :canceled
+      transitions :from => [:in_queued, :in_delivering, :delivering], :to => :canceling
     end
   end
 	

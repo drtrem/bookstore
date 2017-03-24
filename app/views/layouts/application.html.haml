@@ -69,8 +69,8 @@
                 <li><a class="filter-link" href="/settings/index?">Settings</a></li></li>
                 <li class="divider" role="separator"></li>
                 - if current_user.role == 'admin'
-                  <li><a rel="nofollow" data-method="delete" href="/admin">Admin panel</a></li>
-                <li><a rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
+                  <li><a rel="nofollow" data-method="delete" href="/admin">Admin panel</a><li>
+                <li><a class="collapse-link" rel="nofollow" data-method="delete" href="/users/sign_out?">Log out</a></li>
                 </ul>
                 </li>
               - else
