@@ -31,71 +31,65 @@
       .visible-xs.visible-sm
         %h3.general-subtitle= t('.billing_address')
         %p.general-info-text= t('.all_fields_are_required')
-      = form_for @user, :url => orders_path, :method => :post, :html => {:id => "form1"} do |f|
-        - @loc_f = f
         .form-group{class: "#{"has-error" if adress_has_error?(:first_name)}"}
-          = f.label :first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "first_name" }
-          = f.text_field :first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+          %label.control-label.font-weight-light{for: "firstName"}= t('.first_name')
+          = text_field_tag "billing[first_name]", "#{address_saved_value("billing", :first_name)}", placeholder: "First Name", id: "firstName", class: "form-control"
           %span.help-block= adress_error_message(:first_name) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:last_name)}"}
-          = f.label :last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "last_name" }
-          = f.text_field :last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+          %label.control-label.font-weight-light{for: "lastName"}= t('.last_name')
+          = text_field_tag "billing[last_name]", "#{address_saved_value("billing", :last_name)}", placeholder: "Last Name", id: "lastName", class: "form-control"
           %span.help-block= adress_error_message(:last_name) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:address)}"}
-          = f.label :address, t('.address'), { class: 'control-label font-weight-lights', for: "address" }
-          = f.text_field :address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+          %label.control-label.font-weight-light{for: "address"}= t('.address')
+          = text_field_tag "billing[address_name]", "#{address_saved_value("billing", :address_name)}", placeholder: "Address", id: "address", class: "form-control"
           %span.help-block= adress_error_message(:address) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:city)}"}
-          = f.label :city, t('.city'), { class: 'control-label font-weight-lights', for: "city" }
-          = f.text_field :city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+          %label.control-label.font-weight-light{for: "city"}= t('.city')
+          = text_field_tag "billing[city]", "#{address_saved_value("billing", :city)}", id: "city", placeholder: "City", class: "form-control"
           %span.help-block= adress_error_message(:city) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:zip)}"}
-          = f.label :zip, t('.zip'), { class: 'control-label font-weight-lights', for: "zip" }
-          = f.text_field :zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+          %label.control-label.font-weight-light{for: "zip"}= t('.zip')
+          = text_field_tag "billing[zip]", "#{address_saved_value("billing",  :zip)}", id: "zip", placeholder: "Zip", class: "form-control"
           %span.help-block= adress_error_message(:zip) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:country)}"}
-          = f.label :country, t('.country'), { class: 'control-label font-weight-lights', for: "country" }
-          = f.text_field :country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+          %label.control-label.font-weight-light{for: "сountry"}= t('.country')
+          = select_tag "billing[country]", options_for_select(["Ukraine", "Russian", "USA"], address_saved_value("billing", :сountry)), id: "country", class: "form-control"
           %span.help-block= adress_error_message(:country) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:phone)}"}
-          = f.label :phone, t('.phone'), { class: 'control-label font-weight-lights', for: "phone" }
-          = f.text_field :phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+          %label.control-label.font-weight-light{for: "phone"}= t('.phone')
+          = text_field_tag "billing[phone]", "#{address_saved_value("billing", :phone)}", placeholder: "Example +355661234567", id: "phone", class: "form-control"
           %span.help-block= adress_error_message(:phone) if @user.errors.any?
-          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
     .col-md-5.col-md-offset-1.mb-60
       .visible-xs.visible-sm
-        %h3.general-subtitle Shipping Address
-      = form_for @user, :url => orders_path, :method => :post, :html => {:id => "form2"} do |f|
-        - @loc_f = f
+        %h3.general-subtitle#form2 Shipping Address
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_first_name)}"}
-          = f.label :shipping_first_name, t('.first_name'), { class: 'control-label font-weight-lights', for: "shipping_first_name" }
-          = f.text_field :shipping_first_name, { class: 'form-control', id: 'firstName', type: "text", placeholder: "First Name" }
+          %label.control-label.font-weight-light{for: "firstName"}= t('.first_name')
+          = text_field_tag "shipping[first_name]", "#{address_saved_value("shipping", :first_name)}", placeholder: "First Name", id: "firstName", class: "form-control"
           %span.help-block= adress_error_message(:shipping_first_name) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_last_name)}"}
-          = f.label :shipping_last_name, t('.last_name'), { class: 'control-label font-weight-lights', for: "shipping_last_name" }
-          = f.text_field :shipping_last_name, { class: 'form-control', id: 'lastName', type: "text", placeholder: "Last Name" }
+          %label.control-label.font-weight-light{for: "lastName"}= t('.last_name'
+          = text_field_tag "shipping[last_name]", "#{address_saved_value("shipping", :last_name)}", placeholder: "Last Name", id: "lastName", class: "form-control"
           %span.help-block= adress_error_message(:shipping_last_name) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_address)}"}
-          = f.label :shipping_address, t('.address'), { class: 'control-label font-weight-lights', for: "shipping_address" }
-          = f.text_field :shipping_address, { class: 'form-control', id: 'address', type: "text", placeholder: "Address" }
+          %label.control-label.font-weight-light{for: "address"}= t('.address')
+          = text_field_tag "shipping[address_name]", "#{address_saved_value("shipping", :address_name)}", placeholder: "Address", id: "address", class: "form-control"
           %span.help-block= adress_error_message(:shipping_address) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_city)}"}
-          = f.label :shipping_city, t('.city'), { class: 'control-label font-weight-lights', for: "shipping_city" }
-          = f.text_field :shipping_city, { class: 'form-control', id: 'city', type: "text", placeholder: "City" }
+          %label.control-label.font-weight-light{for: "city"}= t('.city')
+          = text_field_tag "shipping[city]", "#{address_saved_value("shipping", :city)}", id: "city", placeholder: "City", class: "form-control"
           %span.help-block= adress_error_message(:shipping_city) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_zip)}"}
-          = f.label :shipping_zip, t('.zip'), { class: 'control-label font-weight-lights', for: "shipping_zip" }
-          = f.text_field :shipping_zip, { class: 'form-control', id: 'zip', type: "text", placeholder: "Zip" }
+          %label.control-label.font-weight-light{for: "zip"}= t('.zip')
+          = text_field_tag "shipping[zip]", "#{address_saved_value("shipping", :zip)}", id: "zip", placeholder: "Zip", class: "form-control"
           %span.help-block= adress_error_message(:shipping_zip) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_country)}"}
-          = f.label :shipping_country, t('.country'), { class: 'control-label font-weight-lights', for: "shipping_country" }
-          = f.text_field :shipping_country, { class: 'form-control', id: 'country', type: "text", placeholder: "Country" }
+          %label.control-label.font-weight-light{for: "сountry"}= t('.country')
+          = select_tag "shipping[country]", options_for_select(["Ukraine", "Russian", "USA"], address_saved_value("shipping", :сountry)), id: "country", class: "form-control"
           %span.help-block= adress_error_message(:shipping_country) if @user.errors.any?
         .form-group{class: "#{"has-error" if adress_has_error?(:shipping_phone)}"}
-          = f.label :shipping_phone, t('.phone'), { class: 'control-label font-weight-lights', for: "shipping_phone" }
-          = f.text_field :shipping_phone, { class: 'form-control', id: 'phone', type: "tel", placeholder: "Example +355 66 123 4567" }
+          %label.control-label.font-weight-light{for: "phone"}= t('.phone')
+          = text_field_tag "shipping[phone]", "#{address_saved_value("shipping", :phone)}", placeholder: "Example +355661234567", id: "phone", class: "form-control"
           %span.help-block= adress_error_message(:shipping_phone) if @user.errors.any?
-          = f.submit t('.save_and_continue'), {class: 'btn center-block mb-20 hidden', id: '1'}
       .form-group.checkbox
         %label.font-weight-light.pl-0
           %input.checkbox-input{type: "checkbox", hidden: "true", name: 'use_billing', onchange: "document.getElementById('form2').style.display = this.checked ? 'none' : 'block'"}
@@ -117,6 +111,6 @@
               %p.font-16= t('.order_total')
             %td
               %p.font-16= number_to_currency(@cart.total_price - @cart.total_cupon)
-        = @loc_f.submit t('.save_and_continue'), {class: 'btn center-block mb-20', id: '3', onclick: "document.getElementById('1').click()"}
+        = submit_tag "Save and Continue", method: :put, class: "btn btn-default center-block mb-20"
   
 
