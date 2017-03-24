@@ -13,29 +13,32 @@ class OrdersController < InheritedResources::Base
   end
 
   def create
-    @user = User.find(current_user.id)
-    copy_params
+    @user = User.find_by_id(current_user.id)
     if session[:return_to] == nil
-      @user.update_attributes(user_params)
-      render 'delivery/index'
+      if @user.update_attributes(user_params)
+        render 'delivery/index'
+      else
+        render 'orders/index'
+      end
     else
       session[:return_to] = nil
       @order = Order.find(session[:order_id])
       @delivery = Delivery.find(@order.delivery_id)
       session[:return_to] = true
-      @user.update_attributes(user_params)
-      render 'confirm/index'
+      if @user.update_attributes(user_params)
+        render 'confirm/index'
+      else
+        render 'orders/index'
+      end
     end
+    copy_params
+    @user.save
 	end
 
   private
 
   def user_params
-    #if params[:user].has_key?(:first_name)
       params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
-    #else
-      #params.require(:user).permit(:shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
-    #end
   end
 
   def copy_params
