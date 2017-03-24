@@ -13,8 +13,6 @@ Rails.application.routes.draw do
   get '/en/product/category/:id', to: 'products#category', as: 'category' 
 
   get '/en/carts/:id/cupon_path', to: 'carts#cupon_apply', as: 'cupon'
-
-  get '/en/admin_push' => 'home#admin_root'
   
   ActiveAdmin.routes(self)
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
