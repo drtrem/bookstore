@@ -16,12 +16,14 @@ class OrdersController < InheritedResources::Base
     @user = User.find(current_user.id)
     copy_params
     if session[:return_to] == nil
+      @user.update_attributes(user_params)
       render 'delivery/index'
     else
       session[:return_to] = nil
       @order = Order.find(session[:order_id])
       @delivery = Delivery.find(@order.delivery_id)
       session[:return_to] = true
+      @user.update_attributes(user_params)
       render 'confirm/index'
     end
 	end
@@ -29,22 +31,20 @@ class OrdersController < InheritedResources::Base
   private
 
   def user_params
-    if params[:user].has_key?(:first_name)
+    #if params[:user].has_key?(:first_name)
       params.require(:user).permit(:first_name, :last_name, :address, :city, :zip, :country, :phone)
-    else
-      params.require(:user).permit(:shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
-    end
+    #else
+      #params.require(:user).permit(:shipping_first_name, :shipping_last_name, :shipping_address, :shipping_city, :shipping_zip, :shipping_country, :shipping_phone)
+    #end
   end
 
   def copy_params
-    if true == true
-      @user.shipping_first_name = @user.first_name
-      @user.shipping_last_name = @user.last_name
-      @user.shipping_address = @user.address
-      @user.shipping_city = @user.city
-      @user.shipping_zip = @user.zip
-      @user.shipping_country = @user.country
-      @user.shipping_phone = @user.phone
-    end
+    @user.shipping_first_name = @user.first_name
+    @user.shipping_last_name = @user.last_name
+    @user.shipping_address = @user.address
+    @user.shipping_city = @user.city
+    @user.shipping_zip = @user.zip
+    @user.shipping_country = @user.country
+    @user.shipping_phone = @user.phone
   end
 end

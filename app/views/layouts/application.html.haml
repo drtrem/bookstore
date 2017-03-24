@@ -12,6 +12,7 @@
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = stylesheet_link_tag "my.css"
   %body
     %header.navbar.navbar-default
       .container
@@ -78,7 +79,7 @@
                 <li><a href="/users/sign_up?" role="button">Sign up</a></li>
     %main.container
       = yield
-    %footer.navbar.navbar-inverse.mb-0
+    %footer.footer.navbar.navbar-inverse.mb-0
       .container
         .row
           .col-sm-9
