@@ -1,7 +1,7 @@
 class OrdersController < InheritedResources::Base
-	include CurrentCart
+  include CurrentCart
 
-	before_action :set_cart, only: [:index, :create]
+  before_action :set_cart, only: [:index, :create]
   before_action :authenticate_user!
 
   def index
@@ -33,7 +33,7 @@ class OrdersController < InheritedResources::Base
     end
     copy_params
     @user.save
-	end
+  end
 
   private
 

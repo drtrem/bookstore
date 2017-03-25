@@ -1,5 +1,5 @@
 class LineItemsController < InheritedResources::Base
-	include CurrentCart
+  include CurrentCart
 
   before_action :set_cart, only: [:index, :create, :update, :destroy]
 

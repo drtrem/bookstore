@@ -1,8 +1,10 @@
 class CompleteController < ApplicationController
-	include CurrentCart
+  include CurrentCart
 
   before_action :authenticate_user!
-	before_action :set_cart, only: [:index]
+
+  before_action :authenticate_user!
+  before_action :set_cart, only: [:index]
   after_action :clear_line_items, only: [:index]
 
   def index

@@ -1,13 +1,13 @@
 class SettingsController < ApplicationController
   include SettingsHelper
 
-	before_action :authenticate_user!
-	before_action :set_user, only: [:index, :update, :update_password]
+  before_action :authenticate_user!
+  before_action :set_user, only: [:index, :update, :update_password]
 
   def update
     @user.update_attributes(user_params)
     redirect_to settings_index_path
-	end
+  end
 
   def update_password
     if @user.update_with_password(user_params)
@@ -29,7 +29,7 @@ class SettingsController < ApplicationController
   private
 
   def set_user
-  	@user = User.find(current_user.id)
+    @user = User.find(current_user.id)
   end
 
   def user_params

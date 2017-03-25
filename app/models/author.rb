@@ -1,5 +1,5 @@
 class Author < ApplicationRecord
-	has_many :products, dependent: :destroy
+  has_many :products, dependent: :destroy
 
-	validates :first_name, :last_name, presence: true
+  validates :first_name, :last_name, presence: true
 end

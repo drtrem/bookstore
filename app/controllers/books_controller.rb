@@ -1,10 +1,10 @@
 class BooksController < ApplicationController
-	include CurrentCart
+  include CurrentCart
 
-	before_action :set_cart, only: [:show]
+  before_action :set_cart, only: [:show]
 
   def show
-  	@product = Product.find_by_id(params[:id])
+    @product = Product.find_by_id(params[:id])
     unless current_user == nil
       @user = User.find_by_id(current_user.id)
       @line_items = LineItem.where("product_id = :product_id AND cart_id = :cart_id",{product_id: params[:id], cart_id: @cart.id}).first
@@ -15,7 +15,7 @@ class BooksController < ApplicationController
       end
     end
     @product.views = @product.views + 1
-		@product.save
+    @product.save
     @reviews = Comment.where(product_id: @product.id, state: 'true')
   end
 end

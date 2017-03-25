@@ -29,17 +29,17 @@ class User < ApplicationRecord
   end
 
   def self.from_omniauth(auth)
-	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-	    user.email = auth.info.email
-	    user.password = Devise.friendly_token[0,20]
+    where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0,20]
       user.first_name = auth.info.name.split(' ')[0] 
       user.last_name = auth.info.name.split(' ')[1]
       user.pictures = auth.info.image
       user.save
-	  end
-	end
+    end
+  end
 
-	def self.new_with_session(params, session)
+  def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
@@ -47,17 +47,14 @@ class User < ApplicationRecord
     end
   end
 
-  # instead of deleting, indicate the user requested a delete & timestamp it  
   def soft_delete  
     update_attribute(:deleted_at, Time.current)  
   end  
-  
-  # ensure user account is active  
+   
   def active_for_authentication?  
     super && !deleted_at  
   end  
-  
-  # provide a custom message for a deleted account   
+    
   def inactive_message   
     !deleted_at ? super : :deleted_account  
   end
