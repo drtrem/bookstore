@@ -14,7 +14,7 @@ class BooksController < ApplicationController
         @quantity = @line_items.quantity
       end
     end
-    @product.views = @product.views + 1
+    @product.views += 1
     @product.save
     @reviews = Comment.where(product_id: @product.id, state: 'true')
   end

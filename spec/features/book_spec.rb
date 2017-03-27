@@ -1,22 +1,29 @@
+require 'rails_helper'
+
+
 feature 'Book', type: :feature, js: true do
-  let!(:mobile) { create :category, name: 'Mobile Development' }
-  let!(:mobile_book) { create(:book, :long_description)  }
+  let!(:mobile) { create :category, category: 'Mobile Development' }
+  let!(:mobile_book) { create(:product) }
   let!(:user) { create :user }
-  let!(:review) { create :review, user: user, book: mobile_book }
+  let!(:review) { create :comment }
+
+  before do
+    expect_any_instance_of(Product).to receive(:views).and_return(1)
+  end
 
   background do
-    visit book_path(mobile_book)
+    visit book_path(id: mobile_book.id)
   end
 
   context 'main book page' do
     scenario 'main elements' do
-      expect(page).to have_content(I18n.t('books.show.back'))
-      expect(first('input.btn-default').value).to eq I18n.t('books.show.cart_add')
+      expect(page).to have_content('Back to results')
+      expect(first('input.btn-default').value).to eq('Add to Cart')
     end
 
     scenario 'book params' do
-      expect(page).to have_content(mobile_book.name)
-      expect(page).to have_content(mobile_book.publication_year)
+      expect(page).to have_content(mobile_book.title)
+      expect(page).to have_content(mobile_book.year)
       expect(page).to have_content(mobile_book.price)
     end
 
@@ -26,4 +33,4 @@ feature 'Book', type: :feature, js: true do
       expect(page).to have_content(mobile_book.description)
     end
   end
-end
+end 

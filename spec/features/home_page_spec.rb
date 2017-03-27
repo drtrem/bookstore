@@ -1,16 +1,17 @@
-feature 'Show books', type: :feature, js: true do
-  let!(:mobile) { create :category, name: 'Mobile Development' }
-  let!(:design) { create :category, name: 'Web Design' }
-  let!(:book_mobile_first) { create :book, category: mobile }
-  let!(:book_mobile_second) { create :book, category: mobile }
-  let!(:book_design) { create :book, category: design }
+require 'rails_helper'
+
+RSpec.feature 'Show books', type: :feature, js: true do
+  let(:category) { create(:category) }
+  let(:product) { create(:product) }
+  let(:slide){ create(:product) }
 
   background do
-    visit root_path
+    visit store_path
   end
 
   context 'main elements' do
     scenario 'main elements' do
+      allow_any_instance_of(Product).to receive(:image_url).and_return("Wibble")
       expect(page).to have_content(I18n.t('general.project_name'))
       expect(page).to have_content(I18n.t('general.welcome'))
       expect(page).to have_content(I18n.t('layout.links.home'))
