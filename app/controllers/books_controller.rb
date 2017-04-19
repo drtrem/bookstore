@@ -17,4 +17,8 @@ class BooksController < ApplicationController
     @quantity = @line_items.quantity unless @line_items.nil?
     @quantity || 1
   end
+
+  def update
+    #redirect_to line_items_path(product_id: @product.id)
+  end
 end 

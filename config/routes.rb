@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       end
     end
     resources :home, only: [:index, :create]
-    resources :books, only: [:show]
+    resources :books, only: [:show, :update]
     resources :orders, only: [:index, :create]
     resources :line_items, only: [:index, :new, :create, :update, :destroy]
     resources :carts, only: [:show, :edit]

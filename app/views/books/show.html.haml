@@ -20,12 +20,15 @@
       .col-xs-12.col-md-4
         %p.h1.in-gold-500.mt-10= "€#{@product.price}0"
       .col-xs-5.col-md-3
+        = form_tag(book_path, method: "patch")
         .input-group.general-position
-          = link_to '', line_item_path(product_id: @product.id), method: :patch, class: "input-link fa fa-minus line-height-40"
-          %input.form-control.quantity-input{:type => "text", :value => "#{quantity}"}
-          = link_to '', line_items_path(product_id: @product.id), remote: true, method: :post, class: "input-link fa fa-plus line-height-40"
-      .col-xs-7.col-md-5
-        = button_to 'Add to Cart', line_items_path(product_id: @product.id), remote: true, class: "btn btn-default pull-right general-position"
+          %a.input-link.minus.fa.fa-minus.line-height-40{href: ""}
+          %input.form-control.quantity-input{id: "quantity", type: "text", name: "quantity", min: 1, max: 999, value: 1}
+          %a.input-link.plus.fa.fa-plus.line-height-40{href: ""}
+        .col-xs-7.col-md-5
+          = button_to 'Add to Cart', line_items_path(product_id: @product.id), remote: true, class: "btn btn-default pull-right general-position"
+          %input.btn.btn-default.pull-right.general-positionid{type: "submit", value: "Add to Cart"}
+          = submit_tag("Search")
     .card
       .clearfix
         %p.general-item-info.pull-right= @product.materials
