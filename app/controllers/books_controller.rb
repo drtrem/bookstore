@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   include CurrentCart
 
-  before_action :set_cart, only: [:show]
+  before_action :set_cart, only: [:show, :update]
   helper_method :quantity
 
   def show
@@ -19,6 +19,13 @@ class BooksController < ApplicationController
   end
 
   def update
-    #redirect_to line_items_path(product_id: @product.id)
+    if params[:quantity].to_i <= 0
+      redirect_to book_path
+      return
+    end
+    product = Product.find_by_id(params[:id])
+    @line_item = @cart.add_product(product.id, params[:quantity])
+    @line_item.save
+    redirect_to @line_item.cart
   end
 end 

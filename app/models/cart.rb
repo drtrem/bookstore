@@ -1,10 +1,14 @@
 class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy
 
-  def add_product(product_id)
+  def add_product(product_id, quantity = nil)
     current_item = line_items.find_by(product_id: product_id)
     if current_item
-      current_item.quantity += 1
+      if quantity
+        current_item.quantity += quantity.to_i
+      else
+        current_item.quantity += 1
+      end
     else
       current_item = line_items.build(product_id: product_id)
     end
@@ -37,3 +41,4 @@ class Cart < ApplicationRecord
     @cupon.price
   end
 end
+ 
