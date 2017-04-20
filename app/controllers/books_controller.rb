@@ -12,12 +12,6 @@ class BooksController < ApplicationController
     @reviews = Comment.where(product_id: @product.id, state: 'true')
   end
 
-  def quantity
-    @line_items = LineItem.where("product_id = :product_id AND cart_id = :cart_id",{product_id: params[:id], cart_id: @cart.id}).first
-    @quantity = @line_items.quantity unless @line_items.nil?
-    @quantity || 1
-  end
-
   def update
     if params[:quantity].to_i <= 0
       redirect_to book_path
@@ -29,3 +23,4 @@ class BooksController < ApplicationController
     redirect_to @line_item.cart
   end
 end 
+ 
