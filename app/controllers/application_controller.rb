@@ -10,7 +10,11 @@ class ApplicationController < ActionController::Base
   before_action :set_labels
 
   def authenticate_admin!
-    redirect_to new_user_session_path unless current_user.role?(:admin)
+    if current_user   
+      redirect_to new_user_session_path unless current_user.role?(:admin)
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   protected

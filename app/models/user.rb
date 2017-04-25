@@ -21,7 +21,11 @@ class User < ApplicationRecord
   validates :shipping_phone, length: { maximum: 15 }, format: { with: /\A^\+[0-9]+\z/, message: "should starts with +" }, on: :update
 
   def role?(r)
-    role.include? r.to_s
+    if role
+      role.include? r.to_s
+    else
+      false
+    end
   end
 
   def send_admin_mail
